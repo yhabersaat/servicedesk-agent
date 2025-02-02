@@ -1,0 +1,137 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+    "schema_version": "v2.1",
+    "name_for_human": "Service Desk",
+    "description_for_human": "This is a simple API based on Node.js and Express.js to manage service desk incidents",
+    "namespace": "servicedeskagent",
+    "functions": [
+        {
+            "name": "getIncidents",
+            "description": "Get incidents by assignedTo and/or number",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$.results",
+                    "properties": {
+                        "title": "$.number",
+                        "subtitle": "$.assignedTo"
+                    },
+                    "static_template": {
+                        "type": "AdaptiveCard",
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.5",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "$data": "${$root}",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Number: ${if(number, number, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Assigned to: ${if(assignedTo, assignedTo, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Priority: ${if(priority, priority, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Creation date: ${if(createdOn, createdOn, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Opened by: ${if(openedBy, openedBy, 'N/A')}",
+                                        "wrap": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "getSearch",
+            "description": "Search incidents by keyword",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$.results",
+                    "properties": {
+                        "title": "$.number",
+                        "subtitle": "$.assignedTo"
+                    },
+                    "static_template": {
+                        "type": "AdaptiveCard",
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "version": "1.5",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "$data": "${$root}",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Number: ${if(number, number, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Assigned to: ${if(assignedTo, assignedTo, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Priority: ${if(priority, priority, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Creation date: ${if(createdOn, createdOn, 'N/A')}",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Opened by: ${if(openedBy, openedBy, 'N/A')}",
+                                        "wrap": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "None"
+            },
+            "spec": {
+                "url": "apiSpecificationFile/openapi.yaml"
+            },
+            "run_for_functions": [
+                "getIncidents",
+                "getSearch"
+            ]
+        }
+    ],
+    "capabilities": {
+        "localization": {},
+        "conversation_starters": [
+            {
+                "text": "Get incidents by assignedTo and/or number"
+            },
+            {
+                "text": "Search incidents by keyword"
+            }
+        ]
+    }
+}

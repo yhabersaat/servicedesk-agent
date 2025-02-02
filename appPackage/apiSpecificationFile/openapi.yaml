@@ -1,0 +1,87 @@
+openapi: 3.0.1
+info:
+  title: Service Desk API
+  version: 1.1.0
+  description: This is a simple API based on Node.js and Express.js to manage service desk incidents
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT.html
+  contact:
+    name: Yves Habersaat
+    url: https://www.yhabersaat.ch
+    email: info@yhabersaat.ch
+servers:
+  - url: https://scaling-space-funicular-wrxvp6jppr7h96q5-8080.app.github.dev
+    description: Service Desk API server
+paths:
+  /incidents:
+    get:
+      operationId: getIncidents
+      summary: Get incidents by assignedTo and/or number
+      tags:
+        - Incident Management
+      parameters:
+        - in: query
+          name: assignedTo
+          schema:
+            type: string
+          description: Name of the person assigned to the incident
+        - in: query
+          name: number
+          schema:
+            type: string
+          description: Incident number
+      responses:
+        "200":
+          description: A list of incidents matching the query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Incident"
+  /search:
+    get:
+      operationId: getSearch
+      summary: Search incidents by keyword
+      tags:
+        - Incident Management
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Keyword to search incidents
+      responses:
+        "200":
+          description: A list of incidents matching the search keyword
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Incident"
+components:
+  schemas:
+    Incident:
+      type: object
+      properties:
+        number:
+          type: string
+        assignedTo:
+          type: string
+        priority:
+          type: string
+        createdOn:
+          type: string
+          format: date-time
+        openedBy:
+          type: string
+        description:
+          type: string

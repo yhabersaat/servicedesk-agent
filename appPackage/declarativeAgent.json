@@ -1,0 +1,57 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
+    "version": "v1.0",
+    "name": "Service Desk",
+    "description": "Declarative agent to help users with their service desk related queries",
+    "instructions": "$[file('instruction.txt')]",
+    "actions": [
+        {
+            "id": "ServiceDeskPlugin",
+            "file": "servicedesk-ai-plugin.json"
+        }
+    ],
+    "capabilities": [
+        {
+            "name": "GraphConnectors",
+            "connections": [
+                {
+                    "connection_id": "ServiceNowKB1"
+                }
+            ]
+        },
+        {
+            "name": "OneDriveAndSharePoint",
+            "items_by_url": [
+                {
+                    "url": "https://yhabersaat.sharepoint.com/sites/ServiceDesk/Shared%20Documents"
+                }
+            ]
+        }
+    ],
+    "conversation_starters": [
+        {
+            "title": "List related incidents",
+            "text": "List all the incidents related to Outlook and format the results as a table with incident details in each row"
+        },
+        {
+            "title": "Get incident details",
+            "text": "Show me the details of the incident INC00006"
+        },
+        {
+            "title": "List incidents assigned to someone",
+            "text": "List all the incidents assigned to Henrietta Mueller"
+        },
+        {
+            "title": "Ask for a specific question about Mac OS X",
+            "text": "How can I find the MAC address of my Ethernet or wireless interface in Mac OS X?"
+        },
+        {
+            "title": "Ask for a specific question about VPN connectivity",
+            "text": "Give me the steps to make advanced troubleshooting for a VPN connectivity issue"
+        },
+        {
+            "title": "Get help to solve a specific incident",
+            "text": "Help me to solve the incident INC00026 from the service desk database using the ServiceNow knowledge base"
+        }
+    ]
+}
